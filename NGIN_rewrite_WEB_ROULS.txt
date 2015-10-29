@@ -1,0 +1,16 @@
+location / {
+    
+        # MODX rewrites per css/js/img
+        rewrite ^/(web|simp|trad)/css(.*)$ /css$2 break;
+    
+        rewrite ^/(web|simp|trad)/js(.*)$ /js$2 break;
+    
+        rewrite ^/(web|simp|trad)/img(.*)$ /img$2 break;
+    
+
+        # MODX rewrites per loading content based on [[*ALIAS]]
+        if (!-e $request_filename){
+            rewrite ^/(eng|simp|trad)?/?(.*)$ /index.php?cultureKey=$1&q=$2 last;
+        }
+ 
+    }
